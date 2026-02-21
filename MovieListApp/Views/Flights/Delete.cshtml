@@ -1,0 +1,31 @@
+@model MovieListApp.Models.Flight
+
+@{
+    ViewData["Title"] = "Delete Flight";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning">
+    Are you sure you want to delete 
+    <strong>@Model.FlightNumber</strong>
+    from @Model.FromCity 
+    to @Model.ToCity 
+    on @Model.Date.ToString("M/d/yyyy")?
+</div>
+
+<form asp-action="Delete" method="post">
+
+    @Html.AntiForgeryToken()
+
+    <!-- Hidden Id so controller knows what to delete -->
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

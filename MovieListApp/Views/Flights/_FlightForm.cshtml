@@ -1,0 +1,56 @@
+@model MovieListApp.Models.Flight
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    // Controller must set: ViewBag.Cities = string[]
+    var cities = ViewBag.Cities as string[] ?? Array.Empty<string>();
+}
+
+<!-- Validation summary -->
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+<!-- Flight Number -->
+<div class="mb-3">
+    <label asp-for="FlightNumber" class="form-label"></label>
+    @if ((string)ViewContext.RouteData.Values["action"] == "Edit")
+    {
+        <input asp-for="FlightNumber" class="form-control" readonly />
+    }
+    else
+    {
+        <input asp-for="FlightNumber" class="form-control" />
+    }
+    <span asp-validation-for="FlightNumber" class="text-danger"></span>
+</div>
+
+<!-- From and To dropdowns -->
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="FromCity" class="form-label"></label>
+        <select asp-for="FromCity" class="form-select" asp-items="new SelectList(cities)">
+            <option value="">-- Select city --</option>
+        </select>
+        <span asp-validation-for="FromCity" class="text-danger"></span>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label asp-for="ToCity" class="form-label"></label>
+        <select asp-for="ToCity" class="form-select" asp-items="new SelectList(cities)">
+            <option value="">-- Select city --</option>
+        </select>
+        <span asp-validation-for="ToCity" class="text-danger"></span>
+    </div>
+</div>
+
+<!-- Date and Price -->
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="Date" class="form-label"></label>
+        <input asp-for="Date" class="form-control" type="date" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+</div>

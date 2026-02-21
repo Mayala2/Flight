@@ -1,0 +1,48 @@
+@model IEnumerable<MovieListApp.Models.Flight>
+
+@{
+    ViewData["Title"] = "Flights";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>@ViewData["Title"]</h2>
+        <a asp-action="Create" class="btn btn-primary">Add Flight</a>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">No flights yet.</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Flight Number</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Date</th>
+                    <th class="text-end">Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var f in Model)
+            {
+                <tr>
+                    <td>@f.FlightNumber</td>
+                    <td>@f.FromCity</td>
+                    <td>@f.ToCity</td>
+                    <td>@f.Date.ToString("M/d/yyyy")</td>
+                    <td class="text-end">@f.Price.ToString("C")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@f.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@f.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
